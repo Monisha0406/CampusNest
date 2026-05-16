@@ -49,12 +49,12 @@ const roomSchema = new mongoose.Schema(
 
 // Virtual for current occupancy
 roomSchema.virtual('currentOccupancy').get(function () {
-  return this.occupants.length;
+  return this.occupants ? this.occupants.length : 0;
 });
 
 // Virtual for available slots
 roomSchema.virtual('availableSlots').get(function () {
-  return this.capacity - this.occupants.length;
+  return this.occupants ? this.capacity - this.occupants.length : this.capacity;
 });
 
 // Auto-update status based on occupancy
